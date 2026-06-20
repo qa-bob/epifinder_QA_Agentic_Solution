@@ -1,0 +1,61 @@
+name: Test Request — New Coverage
+description: Request a new test or expand coverage for a site feature.
+title: "[Test] "
+labels: ["test-request", "enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to request a new test for a feature that is not yet covered.
+
+  - type: dropdown
+    id: suite
+    attributes:
+      label: Which test suite?
+      options:
+        - "@smoke — availability / load"
+        - "@navigation — nav links / routing"
+        - "@forms — form fields / validation"
+        - "@functional — business features"
+        - "@visual — screenshot regression"
+        - "@responsive — viewport layout"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature or page to test
+      description: Describe the site feature, page, or element you want covered.
+      placeholder: |
+        The "Request a Demo" CTA in the hero section should be visible and point
+        to the /contact page. Currently we don't assert the href value.
+    validations:
+      required: true
+
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL (relative)
+      description: The relative URL of the page to test (e.g. `/features` or `/about`)
+      placeholder: /features
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What should pass for this test to be considered complete?
+      placeholder: |
+        - [ ] CTA button is visible on desktop and mobile
+        - [ ] Clicking CTA navigates to /contact
+        - [ ] Button label text includes "Demo" or "Request"
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints
+      options:
+        - label: Test must NOT submit any form
+        - label: Test must NOT create an account or log in
+        - label: Test must use page objects (no raw locators in test body)

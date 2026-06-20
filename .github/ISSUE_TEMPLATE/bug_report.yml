@@ -1,0 +1,82 @@
+name: Bug Report — Failing Test
+description: A test is failing unexpectedly or producing a false positive/negative.
+title: "[Bug] "
+labels: ["bug", "test-failure"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for a test that fails unexpectedly (not due to an intentional site change).
+        For a missing test, use the **Test Request** template.
+
+  - type: input
+    id: test-file
+    attributes:
+      label: Failing test file
+      description: Path to the failing spec file (e.g. `tests/functional/homepage.spec.ts`)
+      placeholder: tests/functional/homepage.spec.ts
+    validations:
+      required: true
+
+  - type: input
+    id: test-name
+    attributes:
+      label: Test name
+      description: Exact test name from the failure output
+      placeholder: "hero section displays a primary heading @functional"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: suite
+    attributes:
+      label: Test suite
+      options:
+        - "@smoke"
+        - "@navigation"
+        - "@forms"
+        - "@functional"
+        - "@visual"
+        - "@responsive"
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-message
+    attributes:
+      label: Error message
+      description: Paste the full Playwright error output
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: failure-type
+    attributes:
+      label: Failure type
+      options:
+        - Selector no longer matches (site HTML changed)
+        - Site is unreachable or returns error
+        - Visual diff exceeds threshold
+        - Test logic error / false assertion
+        - TypeScript compile error
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: When did it start failing? Is it consistent or flaky? Any related site changes?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I ran `npm run typecheck` — it passes
+          required: false
+        - label: I checked whether the site HTML has changed for the broken selector
+          required: false
