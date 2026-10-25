@@ -144,7 +144,8 @@ test.describe('SEO Meta Tags @functional', () => {
   });
 
   test('page has Open Graph title tag @functional', async ({ page }) => {
-    const ogTitle = await page.locator('meta[property="og:title"]').getAttribute('content');
+    const ogTitleTag = page.locator('meta[property="og:title"]').first();
+    const ogTitle = (await ogTitleTag.count()) > 0 ? await ogTitleTag.getAttribute('content') : null;
     if (!ogTitle) {
       console.warn('[functional] Missing <meta property="og:title"> — affects social sharing.');
     }
@@ -153,7 +154,8 @@ test.describe('SEO Meta Tags @functional', () => {
   });
 
   test('page has Open Graph description tag @functional', async ({ page }) => {
-    const ogDesc = await page.locator('meta[property="og:description"]').getAttribute('content');
+    const ogDescTag = page.locator('meta[property="og:description"]').first();
+    const ogDesc = (await ogDescTag.count()) > 0 ? await ogDescTag.getAttribute('content') : null;
     if (!ogDesc) {
       console.warn(
         '[functional] Missing <meta property="og:description"> — affects social sharing previews.'
@@ -163,7 +165,8 @@ test.describe('SEO Meta Tags @functional', () => {
   });
 
   test('page has a canonical link element @functional', async ({ page }) => {
-    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    const canonicalTag = page.locator('link[rel="canonical"]').first();
+    const canonical = (await canonicalTag.count()) > 0 ? await canonicalTag.getAttribute('href') : null;
     if (!canonical) {
       console.warn(
         '[functional] Missing <link rel="canonical"> — can cause duplicate content SEO issues.'
